@@ -1,0 +1,177 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Reanálisis estadístico de un experimento factorial en cerveza artesanal",
+    "section": "",
+    "text": "https://docs.google.com/spreadsheets/d/1zjRCoHZCSss3KxaOpCeYpJasGgjrveIvu7yANO5aOAg/edit?usp=sharing\n\nDatos de Diaz Aranda et al. (2022) sobre cerveza artesanal. La base está en formato tidy: una fila por medición, una columna por variable.\n\n\n\n\nFactor P (factor_P): 2 niveles (P1, P2). Describir qué representa.\nFactor T (factor_T): 3 niveles (T1, T2, T3). Describir qué representa.\nFactor t (factor_t): 3 niveles (t1, t2, t3). Describir qué representa.\n\nCada combinación (tratamiento, por ejemplo P1T1t1) se midió en 3 repeticiones (I, II, III). En total hay 2 × 3 × 3 = 18 tratamientos y 54 observaciones.\n\n\n\nSe asume un Diseño Completamente al Azar (DCA) con arreglo factorial 2 × 3 × 3 y 3 repeticiones:\n\\[\nY_{ijkl} = \\mu + \\alpha_i + \\beta_j + \\gamma_k + (\\alpha\\beta)_{ij} + (\\alpha\\gamma)_{ik} + (\\beta\\gamma)_{jk} + (\\alpha\\beta\\gamma)_{ijk} + \\varepsilon_{ijkl}\n\\]\nDonde \\(\\alpha_i\\) es el efecto del factor P, \\(\\beta_j\\) el del factor T, \\(\\gamma_k\\) el del factor t, y \\(\\varepsilon_{ijkl}\\) el error experimental.\nSi las repeticiones I, II y III fueran bloques (por ejemplo, tres días o tres lotes distintos), cambia usar_bloque a TRUE en el primer bloque de código y se agregará el efecto de bloque al modelo."
+  },
+  {
+    "objectID": "index.html#base-de-datos",
+    "href": "index.html#base-de-datos",
+    "title": "Reanálisis estadístico de un experimento factorial en cerveza artesanal",
+    "section": "",
+    "text": "https://docs.google.com/spreadsheets/d/1zjRCoHZCSss3KxaOpCeYpJasGgjrveIvu7yANO5aOAg/edit?usp=sharing\n\nDatos de Diaz Aranda et al. (2022) sobre cerveza artesanal. La base está en formato tidy: una fila por medición, una columna por variable."
+  },
+  {
+    "objectID": "index.html#identificar-los-factores",
+    "href": "index.html#identificar-los-factores",
+    "title": "Reanálisis estadístico de un experimento factorial en cerveza artesanal",
+    "section": "",
+    "text": "Factor P (factor_P): 2 niveles (P1, P2). Describir qué representa.\nFactor T (factor_T): 3 niveles (T1, T2, T3). Describir qué representa.\nFactor t (factor_t): 3 niveles (t1, t2, t3). Describir qué representa.\n\nCada combinación (tratamiento, por ejemplo P1T1t1) se midió en 3 repeticiones (I, II, III). En total hay 2 × 3 × 3 = 18 tratamientos y 54 observaciones."
+  },
+  {
+    "objectID": "index.html#identificar-el-modelo",
+    "href": "index.html#identificar-el-modelo",
+    "title": "Reanálisis estadístico de un experimento factorial en cerveza artesanal",
+    "section": "",
+    "text": "Se asume un Diseño Completamente al Azar (DCA) con arreglo factorial 2 × 3 × 3 y 3 repeticiones:\n\\[\nY_{ijkl} = \\mu + \\alpha_i + \\beta_j + \\gamma_k + (\\alpha\\beta)_{ij} + (\\alpha\\gamma)_{ik} + (\\beta\\gamma)_{jk} + (\\alpha\\beta\\gamma)_{ijk} + \\varepsilon_{ijkl}\n\\]\nDonde \\(\\alpha_i\\) es el efecto del factor P, \\(\\beta_j\\) el del factor T, \\(\\gamma_k\\) el del factor t, y \\(\\varepsilon_{ijkl}\\) el error experimental.\nSi las repeticiones I, II y III fueran bloques (por ejemplo, tres días o tres lotes distintos), cambia usar_bloque a TRUE en el primer bloque de código y se agregará el efecto de bloque al modelo."
+  },
+  {
+    "objectID": "index.html#análisis-de-variancia",
+    "href": "index.html#análisis-de-variancia",
+    "title": "Reanálisis estadístico de un experimento factorial en cerveza artesanal",
+    "section": "4.1 Análisis de variancia",
+    "text": "4.1 Análisis de variancia\n\nmd &lt;- ajustar(\"brix\")\nanova(md)\n\nAnalysis of Variance Table\n\nResponse: brix\n                           Df Sum Sq Mean Sq F value    Pr(&gt;F)    \nfactor_P                    1 0.2674 0.26741  14.777  0.000474 ***\nfactor_T                    2 4.2477 2.12387 117.365 &lt; 2.2e-16 ***\nfactor_t                    2 4.8772 2.43858 134.756 &lt; 2.2e-16 ***\nfactor_P:factor_T           2 1.6531 0.82654  45.674 1.329e-10 ***\nfactor_P:factor_t           2 3.7006 1.85028 102.246 1.424e-15 ***\nfactor_T:factor_t           4 4.6197 1.15492  63.821 7.593e-16 ***\nfactor_P:factor_T:factor_t  4 3.0801 0.77002  42.551 3.600e-13 ***\nResiduals                  36 0.6515 0.01810                      \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1"
+  },
+  {
+    "objectID": "index.html#supuestos",
+    "href": "index.html#supuestos",
+    "title": "Reanálisis estadístico de un experimento factorial en cerveza artesanal",
+    "section": "4.2 Supuestos",
+    "text": "4.2 Supuestos\n\nsupuestos(md, \"brix\")\n\n\n\n\nprueba\np_valor\nconclusion\n\n\n\n\nShapiro-Wilk (normalidad de residuos)\n0.1199\nse cumple\n\n\nBartlett (homogeneidad de varianzas)\n0.8629\nse cumple"
+  },
+  {
+    "objectID": "index.html#comparación-de-medias",
+    "href": "index.html#comparación-de-medias",
+    "title": "Reanálisis estadístico de un experimento factorial en cerveza artesanal",
+    "section": "4.3 Comparación de medias",
+    "text": "4.3 Comparación de medias\n\ntab &lt;- medias(md)\n\nNote: adjust = \"tukey\" was changed to \"sidak\"\nbecause \"tukey\" is only appropriate for one set of pairwise comparisons\n\ntab\n\n factor_P factor_T factor_t emmean     SE df lower.CL upper.CL .group\n P2       T1       t3         8.71 0.0777 36     8.46     8.96 a     \n P1       T2       t3         8.58 0.0777 36     8.33     8.83 a     \n P1       T1       t3         8.44 0.0777 36     8.19     8.69 a     \n P1       T2       t2         7.61 0.0777 36     7.36     7.86 b     \n P2       T1       t2         7.60 0.0777 36     7.35     7.85 b     \n P2       T3       t1         7.60 0.0777 36     7.35     7.85 b     \n P2       T2       t2         7.56 0.0777 36     7.31     7.81 b     \n P1       T3       t3         7.50 0.0777 36     7.25     7.75 b     \n P2       T3       t2         7.49 0.0777 36     7.24     7.74 b     \n P1       T1       t2         7.44 0.0777 36     7.19     7.69 b     \n P1       T3       t2         7.42 0.0777 36     7.17     7.67 b     \n P1       T1       t1         7.39 0.0777 36     7.14     7.64 b     \n P2       T1       t1         7.37 0.0777 36     7.12     7.62 b     \n P2       T2       t1         6.67 0.0777 36     6.42     6.92 c     \n P2       T2       t3         6.66 0.0777 36     6.41     6.91 c     \n P1       T2       t1         6.61 0.0777 36     6.36     6.86 c     \n P2       T3       t3         6.58 0.0777 36     6.33     6.83 c     \n P1       T3       t1         6.52 0.0777 36     6.27     6.77 c     \n\nConfidence level used: 0.95 \nConf-level adjustment: sidak method for 18 estimates \nP value adjustment: tukey method for comparing a family of 18 estimates \nsignificance level used: alpha = 0.05 \nNOTE: If two or more means share the same grouping symbol,\n      then we cannot show them to be different.\n      But we also did not show them to be the same."
+  },
+  {
+    "objectID": "index.html#representación-gráfica",
+    "href": "index.html#representación-gráfica",
+    "title": "Reanálisis estadístico de un experimento factorial en cerveza artesanal",
+    "section": "4.4 Representación gráfica",
+    "text": "4.4 Representación gráfica\n\ngrafico(tab, \"°Brix\")"
+  },
+  {
+    "objectID": "index.html#análisis-de-variancia-1",
+    "href": "index.html#análisis-de-variancia-1",
+    "title": "Reanálisis estadístico de un experimento factorial en cerveza artesanal",
+    "section": "5.1 Análisis de variancia",
+    "text": "5.1 Análisis de variancia\n\nmd &lt;- ajustar(\"ph\")\nanova(md)\n\nAnalysis of Variance Table\n\nResponse: ph\n                           Df  Sum Sq Mean Sq F value    Pr(&gt;F)    \nfactor_P                    1 0.54401 0.54401 117.601 6.819e-13 ***\nfactor_T                    2 0.71202 0.35601  76.961 9.980e-14 ***\nfactor_t                    2 0.32170 0.16085  34.772 3.906e-09 ***\nfactor_P:factor_T           2 0.66144 0.33072  71.493 2.902e-13 ***\nfactor_P:factor_t           2 0.13965 0.06982  15.094 1.735e-05 ***\nfactor_T:factor_t           4 1.38801 0.34700  75.013 &lt; 2.2e-16 ***\nfactor_P:factor_T:factor_t  4 0.18526 0.04632  10.012 1.493e-05 ***\nResiduals                  36 0.16653 0.00463                      \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1"
+  },
+  {
+    "objectID": "index.html#supuestos-1",
+    "href": "index.html#supuestos-1",
+    "title": "Reanálisis estadístico de un experimento factorial en cerveza artesanal",
+    "section": "5.2 Supuestos",
+    "text": "5.2 Supuestos\n\nsupuestos(md, \"ph\")\n\n\n\n\nprueba\np_valor\nconclusion\n\n\n\n\nShapiro-Wilk (normalidad de residuos)\n0.0966\nse cumple\n\n\nBartlett (homogeneidad de varianzas)\n0.0025\nrevisar"
+  },
+  {
+    "objectID": "index.html#comparación-de-medias-1",
+    "href": "index.html#comparación-de-medias-1",
+    "title": "Reanálisis estadístico de un experimento factorial en cerveza artesanal",
+    "section": "5.3 Comparación de medias",
+    "text": "5.3 Comparación de medias\n\ntab &lt;- medias(md)\n\nNote: adjust = \"tukey\" was changed to \"sidak\"\nbecause \"tukey\" is only appropriate for one set of pairwise comparisons\n\ntab\n\n factor_P factor_T factor_t emmean     SE df lower.CL upper.CL .group\n P2       T1       t3         4.89 0.0393 36     4.77     5.02 a     \n P2       T2       t3         4.78 0.0393 36     4.65     4.91 ab    \n P1       T2       t1         4.78 0.0393 36     4.65     4.90 abc   \n P2       T2       t1         4.76 0.0393 36     4.63     4.89 abcd  \n P2       T3       t1         4.75 0.0393 36     4.62     4.88 abcde \n P2       T1       t2         4.74 0.0393 36     4.61     4.87 abcde \n P1       T2       t3         4.73 0.0393 36     4.60     4.86 abcde \n P2       T2       t2         4.67 0.0393 36     4.55     4.80 bcdef \n P1       T2       t2         4.63 0.0393 36     4.50     4.75 bcdef \n P1       T1       t3         4.57 0.0393 36     4.44     4.70 cdefg \n P1       T3       t1         4.57 0.0393 36     4.44     4.69 defg  \n P2       T3       t3         4.57 0.0393 36     4.44     4.69 defg  \n P1       T3       t2         4.55 0.0393 36     4.42     4.67 efg   \n P1       T3       t3         4.52 0.0393 36     4.39     4.64 fg    \n P2       T3       t2         4.50 0.0393 36     4.38     4.63 fg    \n P2       T1       t1         4.47 0.0393 36     4.34     4.59 fg    \n P1       T1       t2         4.39 0.0393 36     4.26     4.52 g     \n P1       T1       t1         3.60 0.0393 36     3.47     3.73 h     \n\nConfidence level used: 0.95 \nConf-level adjustment: sidak method for 18 estimates \nP value adjustment: tukey method for comparing a family of 18 estimates \nsignificance level used: alpha = 0.05 \nNOTE: If two or more means share the same grouping symbol,\n      then we cannot show them to be different.\n      But we also did not show them to be the same."
+  },
+  {
+    "objectID": "index.html#representación-gráfica-1",
+    "href": "index.html#representación-gráfica-1",
+    "title": "Reanálisis estadístico de un experimento factorial en cerveza artesanal",
+    "section": "5.4 Representación gráfica",
+    "text": "5.4 Representación gráfica\n\ngrafico(tab, \"pH\")"
+  },
+  {
+    "objectID": "index.html#análisis-de-variancia-2",
+    "href": "index.html#análisis-de-variancia-2",
+    "title": "Reanálisis estadístico de un experimento factorial en cerveza artesanal",
+    "section": "6.1 Análisis de variancia",
+    "text": "6.1 Análisis de variancia\n\nmd &lt;- ajustar(\"densidad\")\nanova(md)\n\nAnalysis of Variance Table\n\nResponse: densidad\n                           Df     Sum Sq    Mean Sq F value  Pr(&gt;F)  \nfactor_P                    1 0.00003504 3.5042e-05  1.6301 0.20986  \nfactor_T                    2 0.00001249 6.2470e-06  0.2906 0.74955  \nfactor_t                    2 0.00015949 7.9743e-05  3.7096 0.03429 *\nfactor_P:factor_T           2 0.00001114 5.5720e-06  0.2592 0.77310  \nfactor_P:factor_t           2 0.00001941 9.7070e-06  0.4516 0.64019  \nfactor_T:factor_t           4 0.00017168 4.2920e-05  1.9966 0.11586  \nfactor_P:factor_T:factor_t  4 0.00016434 4.1086e-05  1.9113 0.12970  \nResiduals                  36 0.00077386 2.1496e-05                  \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1"
+  },
+  {
+    "objectID": "index.html#supuestos-2",
+    "href": "index.html#supuestos-2",
+    "title": "Reanálisis estadístico de un experimento factorial en cerveza artesanal",
+    "section": "6.2 Supuestos",
+    "text": "6.2 Supuestos\n\nsupuestos(md, \"densidad\")\n\n\n\n\nprueba\np_valor\nconclusion\n\n\n\n\nShapiro-Wilk (normalidad de residuos)\n0\nrevisar\n\n\nBartlett (homogeneidad de varianzas)\n0\nrevisar"
+  },
+  {
+    "objectID": "index.html#comparación-de-medias-2",
+    "href": "index.html#comparación-de-medias-2",
+    "title": "Reanálisis estadístico de un experimento factorial en cerveza artesanal",
+    "section": "6.3 Comparación de medias",
+    "text": "6.3 Comparación de medias\n\ntab &lt;- medias(md)\n\nNote: adjust = \"tukey\" was changed to \"sidak\"\nbecause \"tukey\" is only appropriate for one set of pairwise comparisons\n\ntab\n\n factor_P factor_T factor_t emmean      SE df lower.CL upper.CL .group\n P1       T3       t2         1.02 0.00268 36    1.012     1.03 a     \n P2       T2       t2         1.01 0.00268 36    1.004     1.02 ab    \n P1       T1       t3         1.01 0.00268 36    1.004     1.02 ab    \n P1       T1       t1         1.01 0.00268 36    1.004     1.02 ab    \n P2       T1       t1         1.01 0.00268 36    1.004     1.02 ab    \n P1       T2       t1         1.01 0.00268 36    1.003     1.02 ab    \n P1       T3       t1         1.01 0.00268 36    1.003     1.02 ab    \n P1       T2       t2         1.01 0.00268 36    1.003     1.02 ab    \n P1       T1       t2         1.01 0.00268 36    1.003     1.02 ab    \n P2       T1       t2         1.01 0.00268 36    1.003     1.02 ab    \n P1       T2       t3         1.01 0.00268 36    1.002     1.02 ab    \n P2       T1       t3         1.01 0.00268 36    1.002     1.02 ab    \n P2       T2       t1         1.01 0.00268 36    1.002     1.02 ab    \n P2       T3       t1         1.01 0.00268 36    1.002     1.02 ab    \n P2       T3       t2         1.01 0.00268 36    1.001     1.02 ab    \n P2       T2       t3         1.01 0.00268 36    0.999     1.02 ab    \n P2       T3       t3         1.01 0.00268 36    0.999     1.02 ab    \n P1       T3       t3         1.00 0.00268 36    0.995     1.01 b     \n\nConfidence level used: 0.95 \nConf-level adjustment: sidak method for 18 estimates \nP value adjustment: tukey method for comparing a family of 18 estimates \nsignificance level used: alpha = 0.05 \nNOTE: If two or more means share the same grouping symbol,\n      then we cannot show them to be different.\n      But we also did not show them to be the same."
+  },
+  {
+    "objectID": "index.html#representación-gráfica-2",
+    "href": "index.html#representación-gráfica-2",
+    "title": "Reanálisis estadístico de un experimento factorial en cerveza artesanal",
+    "section": "6.4 Representación gráfica",
+    "text": "6.4 Representación gráfica\n\ngrafico(tab, \"Densidad\")"
+  },
+  {
+    "objectID": "index.html#análisis-de-variancia-3",
+    "href": "index.html#análisis-de-variancia-3",
+    "title": "Reanálisis estadístico de un experimento factorial en cerveza artesanal",
+    "section": "7.1 Análisis de variancia",
+    "text": "7.1 Análisis de variancia\n\nmd &lt;- ajustar(\"grado_alcoholico\")\nanova(md)\n\nAnalysis of Variance Table\n\nResponse: grado_alcoholico\n                           Df  Sum Sq Mean Sq  F value    Pr(&gt;F)    \nfactor_P                    1  0.1148  0.1148   4.4693    0.0415 *  \nfactor_T                    2  2.6773  1.3386  52.1066 2.351e-11 ***\nfactor_t                    2 14.2114  7.1057 276.5896 &lt; 2.2e-16 ***\nfactor_P:factor_T           2  1.1498  0.5749  22.3786 4.833e-07 ***\nfactor_P:factor_t           2  8.5332  4.2666 166.0786 &lt; 2.2e-16 ***\nfactor_T:factor_t           4  2.5496  0.6374  24.8108 6.396e-10 ***\nfactor_P:factor_T:factor_t  4  6.5989  1.6497  64.2156 6.894e-16 ***\nResiduals                  36  0.9249  0.0257                       \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1"
+  },
+  {
+    "objectID": "index.html#supuestos-3",
+    "href": "index.html#supuestos-3",
+    "title": "Reanálisis estadístico de un experimento factorial en cerveza artesanal",
+    "section": "7.2 Supuestos",
+    "text": "7.2 Supuestos\n\nsupuestos(md, \"grado_alcoholico\")\n\n\n\n\nprueba\np_valor\nconclusion\n\n\n\n\nShapiro-Wilk (normalidad de residuos)\n0\nrevisar\n\n\nBartlett (homogeneidad de varianzas)\n0\nrevisar"
+  },
+  {
+    "objectID": "index.html#comparación-de-medias-3",
+    "href": "index.html#comparación-de-medias-3",
+    "title": "Reanálisis estadístico de un experimento factorial en cerveza artesanal",
+    "section": "7.3 Comparación de medias",
+    "text": "7.3 Comparación de medias\n\ntab &lt;- medias(md)\n\nNote: adjust = \"tukey\" was changed to \"sidak\"\nbecause \"tukey\" is only appropriate for one set of pairwise comparisons\n\ntab\n\n factor_P factor_T factor_t emmean     SE df lower.CL upper.CL .group\n P1       T2       t1         5.81 0.0925 36     5.51     6.11 a     \n P2       T2       t1         5.73 0.0925 36     5.43     6.02 a     \n P2       T3       t1         5.70 0.0925 36     5.40     6.00 a     \n P1       T1       t2         5.66 0.0925 36     5.36     5.95 a     \n P2       T1       t1         5.45 0.0925 36     5.15     5.75 a     \n P1       T3       t1         4.90 0.0925 36     4.61     5.20 b     \n P1       T2       t2         4.86 0.0925 36     4.56     5.16 b     \n P2       T1       t3         4.86 0.0925 36     4.56     5.15 b     \n P1       T2       t3         4.76 0.0925 36     4.47     5.06 b     \n P1       T3       t2         4.55 0.0925 36     4.25     4.84 bc    \n P2       T2       t2         4.47 0.0925 36     4.17     4.76 bcd   \n P1       T1       t1         4.18 0.0925 36     3.89     4.48 cde   \n P2       T3       t3         4.02 0.0925 36     3.72     4.31 def   \n P2       T2       t3         3.73 0.0925 36     3.44     4.03 efg   \n P1       T1       t3         3.57 0.0925 36     3.27     3.87 fg    \n P2       T1       t2         3.57 0.0925 36     3.27     3.87 fg    \n P1       T3       t3         3.51 0.0925 36     3.21     3.81 g     \n P2       T3       t2         3.45 0.0925 36     3.16     3.75 g     \n\nConfidence level used: 0.95 \nConf-level adjustment: sidak method for 18 estimates \nP value adjustment: tukey method for comparing a family of 18 estimates \nsignificance level used: alpha = 0.05 \nNOTE: If two or more means share the same grouping symbol,\n      then we cannot show them to be different.\n      But we also did not show them to be the same."
+  },
+  {
+    "objectID": "index.html#representación-gráfica-3",
+    "href": "index.html#representación-gráfica-3",
+    "title": "Reanálisis estadístico de un experimento factorial en cerveza artesanal",
+    "section": "7.4 Representación gráfica",
+    "text": "7.4 Representación gráfica\n\ngrafico(tab, \"Grado alcohólico\")"
+  },
+  {
+    "objectID": "index.html#análisis-de-variancia-4",
+    "href": "index.html#análisis-de-variancia-4",
+    "title": "Reanálisis estadístico de un experimento factorial en cerveza artesanal",
+    "section": "8.1 Análisis de variancia",
+    "text": "8.1 Análisis de variancia\n\nmd &lt;- ajustar(\"acidez_total\")\nanova(md)\n\nAnalysis of Variance Table\n\nResponse: acidez_total\n                           Df   Sum Sq   Mean Sq F value    Pr(&gt;F)    \nfactor_P                    1 0.006556 0.0065560  88.795 2.965e-11 ***\nfactor_T                    2 0.010008 0.0050042  67.777 6.226e-13 ***\nfactor_t                    2 0.003847 0.0019237  26.055 1.007e-07 ***\nfactor_P:factor_T           2 0.012950 0.0064750  87.697 1.451e-14 ***\nfactor_P:factor_t           2 0.030980 0.0154900 209.797 &lt; 2.2e-16 ***\nfactor_T:factor_t           4 0.090176 0.0225441 305.338 &lt; 2.2e-16 ***\nfactor_P:factor_T:factor_t  4 0.064227 0.0160568 217.474 &lt; 2.2e-16 ***\nResiduals                  36 0.002658 0.0000738                      \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1"
+  },
+  {
+    "objectID": "index.html#supuestos-4",
+    "href": "index.html#supuestos-4",
+    "title": "Reanálisis estadístico de un experimento factorial en cerveza artesanal",
+    "section": "8.2 Supuestos",
+    "text": "8.2 Supuestos\n\nsupuestos(md, \"acidez_total\")\n\n\n\n\nprueba\np_valor\nconclusion\n\n\n\n\nShapiro-Wilk (normalidad de residuos)\n0.0001\nrevisar\n\n\nBartlett (homogeneidad de varianzas)\n0.0012\nrevisar"
+  },
+  {
+    "objectID": "index.html#comparación-de-medias-4",
+    "href": "index.html#comparación-de-medias-4",
+    "title": "Reanálisis estadístico de un experimento factorial en cerveza artesanal",
+    "section": "8.3 Comparación de medias",
+    "text": "8.3 Comparación de medias\n\ntab &lt;- medias(md)\n\nNote: adjust = \"tukey\" was changed to \"sidak\"\nbecause \"tukey\" is only appropriate for one set of pairwise comparisons\n\ntab\n\n factor_P factor_T factor_t emmean      SE df lower.CL upper.CL .group\n P2       T3       t3        0.439 0.00496 36    0.423    0.455 a     \n P1       T2       t1        0.389 0.00496 36    0.373    0.405 b     \n P1       T2       t3        0.363 0.00496 36    0.347    0.379 c     \n P1       T1       t1        0.357 0.00496 36    0.341    0.373 c     \n P2       T1       t2        0.355 0.00496 36    0.339    0.371 c     \n P1       T3       t2        0.342 0.00496 36    0.326    0.358 cd    \n P2       T2       t1        0.322 0.00496 36    0.306    0.338 de    \n P1       T3       t3        0.315 0.00496 36    0.299    0.331 e     \n P1       T3       t1        0.275 0.00496 36    0.259    0.291 f     \n P2       T1       t3        0.269 0.00496 36    0.253    0.285 f     \n P1       T2       t2        0.268 0.00496 36    0.252    0.284 f     \n P2       T2       t2        0.255 0.00496 36    0.239    0.271 f     \n P2       T3       t2        0.253 0.00496 36    0.237    0.269 f     \n P1       T1       t2        0.251 0.00496 36    0.235    0.267 f     \n P2       T2       t3        0.249 0.00496 36    0.233    0.265 f     \n P2       T1       t1        0.223 0.00496 36    0.207    0.239 g     \n P1       T1       t3        0.213 0.00496 36    0.197    0.229 g     \n P2       T3       t1        0.211 0.00496 36    0.195    0.227 g     \n\nConfidence level used: 0.95 \nConf-level adjustment: sidak method for 18 estimates \nP value adjustment: tukey method for comparing a family of 18 estimates \nsignificance level used: alpha = 0.05 \nNOTE: If two or more means share the same grouping symbol,\n      then we cannot show them to be different.\n      But we also did not show them to be the same."
+  },
+  {
+    "objectID": "index.html#representación-gráfica-4",
+    "href": "index.html#representación-gráfica-4",
+    "title": "Reanálisis estadístico de un experimento factorial en cerveza artesanal",
+    "section": "8.4 Representación gráfica",
+    "text": "8.4 Representación gráfica\n\ngrafico(tab, \"Acidez total\")"
+  },
+  {
+    "objectID": "index.html#información-del-pca",
+    "href": "index.html#información-del-pca",
+    "title": "Reanálisis estadístico de un experimento factorial en cerveza artesanal",
+    "section": "9.1 Información del PCA",
+    "text": "9.1 Información del PCA\n\nc1 &lt;- fviz_eig(mv,\n               addlabels = TRUE,\n               hjust = 0.05,\n               barfill = \"white\",\n               barcolor = \"darkblue\",\n               linecolor = \"red\") +\n  labs(\n    title = \"PCA - porcentaje de varianza explicada\",\n    y = \"Varianza (%)\") +\n  theme_minimal() +\n  theme(\n    axis.text.x = element_text(size = 12)\n    , axis.text.y = element_text(size = 12)\n  )\n\nc1\n\n\n\n\n\n\n\nc2 &lt;- fviz_contrib(mv,\n                   choice = \"var\",\n                   axes = 1,\n                   top = 30,\n                   fill = \"white\",\n                   color = \"darkblue\"\n                   , sort.val = \"asc\"\n                   ) +\n  labs(title = \"Dim 1 - contribución de las variables\", x = \"\") +\n  coord_flip() +\n  theme(\n    axis.text.x = element_text(size = 12)\n    , axis.text.y = element_text(size = 12)\n  )\n\nc2\n\n\n\n\n\n\n\nc3 &lt;- fviz_contrib(mv,\n                   choice = \"var\",\n                   axes = 2,\n                   top = 30,\n                   fill = \"white\",\n                   color = \"darkblue\"\n                   , sort.val = \"asc\"\n                   ) +\n  labs(title = \"Dim 2 - contribución de las variables\", x = \"\") +\n  coord_flip() +\n  theme(\n    axis.text.x = element_text(size = 12)\n    , axis.text.y = element_text(size = 12)\n  )\n\nc3\n\n\n\n\n\n\n\nlpanel &lt;- list(c1, c2, c3) %&gt;%\n  plot_grid(plotlist = ., ncol = 1, labels = \"auto\"\n            , rel_heights = c(1, 1.2, 1.2))\n\nrpanel &lt;- \\() {\n\npcainfo$cos2[, 1:2] %&gt;%\n  corrplot(\n    is.corr = FALSE\n    , method = \"number\",\n    type = \"full\",\n    tl.col = \"black\",\n    tl.srt = 45,\n    tl.cex = 0.9,\n    number.cex = 0.5,\n    number.digits = 1,\n    cl.cex = 0.7,\n    cl.pos = \"r\",\n    cl.align.text = \"r\",\n    cl.ratio = 4\n  )\n\n}\n\ngrid &lt;- list(lpanel, rpanel) %&gt;%\n  plot_grid(plotlist = ., ncol = 2, labels = c(\"\", \"d\"))\n\nruta_pca &lt;- grid %&gt;%\n  ggsave(plot = ., \"manuscript/contribucion.jpg\"\n         , units = \"cm\"\n         , width = 28, height = 36)\n\nruta_pca %&gt;% include_graphics()"
+  }
+]
